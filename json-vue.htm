@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>利用vue.js把静态json绑定bootstrap的table</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+</head>
+<body>
+    <div class="container">
+
+        <!-- start list -->
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Vue demo</h1>
+            <div id="app">
+                <table class="table">
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>id</td>
+                        <td>书名</td>
+                        <td>作者</td>
+                        <td>价格</td>
+                    </tr>
+                    <tr v-for="book in books ">
+                        <td>
+                            <label>
+                              <input type="checkbox" v-bind:value="book.id" v-model="checkedNames">
+                            </label>
+                        </td>
+                        <td>{{book.id}}</td>
+                        <td>{{book.name}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.price}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">add</button>
+                            <button type="button" class="btn btn-primary" v-on:click="delItems">delete</button>
+                        </td>
+                    </tr>
+                </table>
+                <p>Checked names: {{ checkedNames }}</p>
+
+
+                <!-- start modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input class="form-control" placeholder="input id" v-model="book.id">
+                                <input class="form-control" placeholder="input author" v-model="book.author">
+                                <input class="form-control" placeholder="input name" v-model="book.name">
+                                <input class="form-control" placeholder="input price" v-model="book.price">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="addItem">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end modal -->
+
+            </div>
+        </div>
+        <!-- end list -->
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            book: {
+                id: '0',
+                author: '',
+                name: '',
+                price: ''
+            },
+            checkedNames: [],
+            books: [{
+                id: '1',
+                author: '曹雪芹',
+                name: '红楼梦',
+                price: 32.0
+            }, {
+                id: '2',
+                author: '施耐庵',
+                name: '水浒传',
+                price: 30.0
+            }, {
+                id: '3',
+                author: '罗贯中',
+                name: '三国演义',
+                price: 24.0
+            }, {
+                id: '4',
+                author: '吴承恩',
+                name: '西游记',
+                price: 20.0
+            }]
+        },
+        methods:{
+            delItems : function() {
+                for (var i = 0 ; i < this.checkedNames.length ; i++) {
+                    for(var j = 0 ; j < this.books.length ; j++){
+                        var cur_book = this.books[j];
+                        if(cur_book.id == this.checkedNames[i]){
+                            this.books.splice(j,1);
+                        }
+                    }
+                }
+                this.checkedNames = [];
+            },
+            addItem :　function(){
+                this.books.push(this.book);
+            }
+        }
+    })
+</script>
+</html>
