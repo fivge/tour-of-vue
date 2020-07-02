@@ -1,3 +1,9 @@
+// 定义名为 todo-item 的新组件
+Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+});
+
 new Vue({
   el: '#app',
   data: {
@@ -32,7 +38,12 @@ var app4 = new Vue({
       {
         text: '整个牛项目'
       }
-    ]
+    ],
+    str: 'just string',
+    arr: ['vue', 'angular', 'react'],
+    obj: {
+      name: 'name'
+    }
   }
 });
 
@@ -52,5 +63,25 @@ var app6 = new Vue({
   el: '#app-6',
   data: {
     message: 'Hello Vue!'
+  }
+});
+
+var app7 = new Vue({
+  el: '#app-7',
+  data: {
+    groceryList: [
+      {
+        id: 0,
+        text: '蔬菜'
+      },
+      {
+        id: 1,
+        text: '奶酪'
+      },
+      {
+        id: 2,
+        text: '随便其它什么人吃的东西'
+      }
+    ]
   }
 });
