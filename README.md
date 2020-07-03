@@ -42,28 +42,6 @@ var app5 = new Vue({
 });
 ```
 
-#### 组件
-
-```html
-<todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"> </todo-item>
-```
-
-```js
-Vue.component('todo-item', {
-  // todo-item 组件现在接受一个
-  // "prop"，类似于一个自定义 attribute。
-  // 这个 prop 名为 todo。
-  props: ['todo'],
-  template: '<li>{{ todo.text }}</li>'
-});
-```
-
-##### `key`
-
-Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。
-
-Vue 为你提供了一种方式来表达“这两个元素是完全独立的，不要复用它们”。只需添加一个具有唯一值的 key attribute 即可
-
 ### Vue 实例
 
 ```js
@@ -176,6 +154,38 @@ Vue 为了使得 DOM 元素得到最大范围的重用而实现了一些智能�
 
 由于 JavaScript 的限制，Vue 不能检测数组和对象的变化。深入响应式原理中有相关的讨论。
 
+### 组件
+
+```html
+<todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"> </todo-item>
+```
+
+```js
+Vue.component('todo-item', {
+  // todo-item 组件现在接受一个
+  // "prop"，类似于一个自定义 attribute。
+  // 这个 prop 名为 todo。
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+});
+```
+
+#### `key`
+
+Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。
+
+Vue 为你提供了一种方式来表达“这两个元素是完全独立的，不要复用它们”。只需添加一个具有唯一值的 key attribute 即可
+
+#### 插槽
+
+<https://cn.vuejs.org/v2/guide/components-slots.html>
+
+`v-slot`
+
+```html
+<slot></slot>
+```
+
 ---
 
 ### todo
@@ -260,6 +270,6 @@ JSX
 
 https://cn.vuejs.org/v2/guide/reactivity.html#%E6%A3%80%E6%B5%8B%E5%8F%98%E5%8C%96%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9
 
----
+> 对比其他框架
 
-todo https://cn.vuejs.org/v2/guide/components.html
+https://cn.vuejs.org/v2/guide/comparison.html
