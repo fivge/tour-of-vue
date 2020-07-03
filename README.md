@@ -186,6 +186,15 @@ Vue 为你提供了一种方式来表达“这两个元素是完全独立的，�
 <slot></slot>
 ```
 
+### CLI
+
+```bash
+yarn global add @vue/cli
+vue create hello-world
+
+[*] babel
+```
+
 ---
 
 ### todo
