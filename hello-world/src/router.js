@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import Foo from './components/Foo.vue';
 import Bar from './components/Bar.vue';
+import Baz from './components/Baz.vue';
 
 // const Foo = () => import('./components/Foo.vue');
 // const Bar = () => import('./components/Bar.vue');
@@ -14,7 +15,8 @@ import Bar from './components/Bar.vue';
 
 export const routes = [
   { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+  { path: '/bar', component: Bar },
+  { path: '/baz', component: Baz }
 ];
 
 const router = new VueRouter({

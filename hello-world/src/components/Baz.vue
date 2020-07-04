@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Bar</p>
+    <p>Baz</p>
     <p>{{ count }}</p>
     <p>
       <button @click="increment">+</button>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'Bar',
+  name: 'Baz',
   data: function() {
     return {};
   },
