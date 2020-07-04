@@ -13,38 +13,24 @@
       </li>
     </ul>
 
-    <div v-if="selectedHero">
-      <!-- <h2>{{selectedHero.name | uppercase}} Details</h2> TODO: 管道-->
-      <h2>{{ selectedHeroName }} Details</h2>
-      <div>
-        <span>id:</span>
-        {{ selectedHero.id }}
-      </div>
-      <div>
-        <label>
-          name:
-          <input v-model="selectedHero.name" placeholder="name" />
-        </label>
-      </div>
-    </div>
+    <app-hero-detail :hero="selectedHero"></app-hero-detail>
   </div>
 </template>
 
 <script>
+import HeroDetail from './hero-detail.vue';
 import { HEROES } from './mock-heroes';
 
 export default {
   name: 'Heroes',
+  components: {
+    'app-hero-detail': HeroDetail
+  },
   data: function() {
     return {
       heroes: HEROES,
       selectedHero: null
     };
-  },
-  computed: {
-    selectedHeroName: function() {
-      return `${this.selectedHero.name}`.toUpperCase();
-    }
   },
   methods: {
     onSelect(hero) {
