@@ -282,3 +282,7 @@ https://cn.vuejs.org/v2/guide/reactivity.html#%E6%A3%80%E6%B5%8B%E5%8F%98%E5%8C%
 > 对比其他框架
 
 https://cn.vuejs.org/v2/guide/comparison.html
+
+---
+
+https://github.com/PanJiaChen/vue-element-admin
