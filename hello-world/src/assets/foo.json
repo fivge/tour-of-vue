@@ -1,0 +1,14 @@
+{
+  "code": "0",
+  "message": "success",
+  "result": [
+    {
+      "name": "foo",
+      "value": 12
+    },
+    {
+      "name": "bar",
+      "value": 15
+    }
+  ]
+}
