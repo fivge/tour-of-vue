@@ -4,11 +4,11 @@ Vue.config.productionTip = false;
 
 import App from './app/app.vue';
 // import router from './app/router';
-// import store from './app/store';
+import store from './app/store';
 
 new Vue({
   el: '#app',
   // router,
-  // store,
+  store,
   render: h => h(App)
 });

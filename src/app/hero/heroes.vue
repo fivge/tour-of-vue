@@ -8,8 +8,8 @@
         :class="{ selected: hero === selectedHero }"
         @click="onSelect(hero)"
       >
-        <span class="badge">{{hero.id}}</span>
-        {{hero.name}}
+        <span class="badge">{{ hero.id }}</span>
+        {{ hero.name }}
       </li>
     </ul>
 
@@ -19,7 +19,8 @@
 
 <script>
 import HeroDetail from './hero-detail.vue';
-import { HEROES } from './mock-heroes';
+
+import { getHeroes } from './hero.service';
 
 export default {
   name: 'Heroes',
@@ -28,13 +29,23 @@ export default {
   },
   data: function() {
     return {
-      heroes: HEROES,
+      heroes: null,
       selectedHero: null
     };
   },
+  created() {
+    this.getHeroes();
+  },
   methods: {
+    getHeroes() {
+      // this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+      // TODO: DI
+      getHeroes().then(heroes => (this.heroes = heroes));
+    },
     onSelect(hero) {
       this.selectedHero = hero;
+      // this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
+      this.$store.commit('add', `HeroesComponent: Selected hero id=${hero.id}`);
     }
   }
 };

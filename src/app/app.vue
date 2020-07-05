@@ -2,16 +2,19 @@
   <div>
     <h1>{{title}}</h1>
     <app-heroes />
+    <app-messages />
   </div>
 </template>
 
 <script>
 import Heroes from './hero/heroes.vue';
+import MessagesComponent from './hero/messages.vue';
 
 export default {
   name: 'App',
   components: {
-    'app-heroes': Heroes
+    'app-heroes': Heroes,
+    'app-messages': MessagesComponent
   },
   data: function() {
     return {
