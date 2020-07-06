@@ -1,51 +1,115 @@
-#### 定义
+`router-view`
 
-```js
-const User = {
-  template: '<div>User</div>'
-};
-
-const router = new VueRouter({
-  routes: [
-    // 动态路径参数 以冒号开头
-    { path: '/user/:id', component: User },
-    { path: '*', component: NotFoundComponent }
-  ]
-});
+```html
+<router-view></router-view>
 ```
 
+`router`
+
 ```js
 const router = new VueRouter({
   routes: [
+    { path: '/user', component: User },
+    // 重定向
+    { path: '/a', redirect: '/b' },
+     {
+      path: '/a',
+      redirect: to => {
+        // 方法接收 目标路由 作为参数
+        // return 重定向的 字符串路径/路径对象
+      }
+    },
+    // 别名
+    { path: '/a', component: A, alias: '/b' },
+    // 动态路径参数 以冒号开头
+    { path: '/user/:id', component: User },
+    // 命名路由
     {
+      path: '/user/:userId',
+      name: 'user',
+      component: User
+    },
+    // 子路由
+     {
       path: '/user/:id',
       component: User,
       children: [
         {
-          // 当 /user/:id/profile 匹配成功，
-          // UserProfile 会被渲染在 User 的 <router-view> 中
+          // /user/:id/profile
           path: 'profile',
           component: UserProfile
         },
         {
-          // 当 /user/:id/posts 匹配成功
-          // UserPosts 会被渲染在 User 的 <router-view> 中
+          // /user/:id/posts
           path: 'posts',
           component: UserPosts
         }
       ]
     }
+    // 通配
+    { path: '*', component: NotFoundComponent }
   ]
 });
 ```
 
-#### 跳转、参数
+`router`
+
+`js`
+
+```js
+// 字符串
+router.push('home');
+// 对象
+router.push({ path: 'home' });
+router.push({ path: '/home' });
+// 带查询参数，变成 /register?plan=private
+router.push({ path: 'register', query: { plan: 'private' } });
+// params
+router.push({ path: `/user/${userId}` }); // -> /user/123
+router.push({ name: 'user', params: { userId } }); // -> /user/123
+// 如果提供了 path，params 会被忽略 ⛔
+router.push({ path: '/user', params: { userId } }); // -> /user 这里的 params 不生效 ⛔
+// 命名的路由
+router.push({ name: 'user', params: { userId: '123' } });
+```
+
+`router.go(n)`
+
+这个方法的参数是一个整数，意思是在 history 记录中向前或者后退多少步，类似 window.history.go(n)。
+
+```js
+// 在浏览器记录中前进一步，等同于 history.forward()
+router.go(1);
+
+// 后退一步记录，等同于 history.back()
+router.go(-1);
+
+// 前进 3 步记录
+router.go(3);
+
+// 如果 history 记录不够用，那就默默地失败呗
+router.go(-100);
+router.go(100);
+```
+
+`html`
 
 ```html
 <router-link to="/foo">Go to Foo</router-link>
-<router-link to="/bar">Go to Bar</router-link>
+<router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
 <router-view></router-view>
 ```
+
+> route
+
+`params`
+
+```js
+// /user/:id
+$route.params.id;
+```
+
+`pathMatch`
 
 ```js
 // 给出一个路由 { path: '/user-*' }
@@ -54,73 +118,6 @@ this.$route.params.pathMatch; // 'admin'
 // 给出一个路由 { path: '*' }
 this.$router.push('/non-existing');
 this.$route.params.pathMatch; // '/non-existing'
-```
-
-```js
-// 字符串
-router.push('home');
-
-// 对象
-router.push({ path: 'home' });
-
-// 命名的路由
-router.push({ name: 'user', params: { userId: '123' } });
-
-// 带查询参数，变成 /register?plan=private
-router.push({ path: 'register', query: { plan: 'private' } });
-
-// 如果提供了 path，params 会被忽略
-
-const userId = '123';
-router.push({ name: 'user', params: { userId } }); // -> /user/123
-router.push({ path: `/user/${userId}` }); // -> /user/123
-// 这里的 params 不生效
-router.push({ path: '/user', params: { userId } }); // -> /user
-```
-
-##### 命名路由
-
-```js
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/user/:userId',
-      name: 'user',
-      component: User
-    }
-  ]
-});
-
-router.push({ name: 'user', params: { userId: 123 } });
-```
-
-```html
-<router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
-```
-
-#### 重定向
-
-```js
-const router = new VueRouter({
-  routes: [{ path: '/a', redirect: '/b' }]
-});
-
-const router = new VueRouter({
-  routes: [
-    {
-      path: '/a',
-      redirect: to => {
-        // 方法接收 目标路由 作为参数
-        // return 重定向的 字符串路径/路径对象
-      }
-    }
-  ]
-});
-
-// 别名
-const router = new VueRouter({
-  routes: [{ path: '/a', component: A, alias: '/b' }]
-});
 ```
 
 #### 路由守卫

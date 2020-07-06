@@ -1,19 +1,21 @@
 <template>
   <div>
     <h1>{{title}}</h1>
-    <app-heroes />
+    <nav>
+      <router-link to="/dashboard">Dashboard</router-link>
+      <router-link to="/heroes">Heroes</router-link>
+    </nav>
+    <router-view></router-view>
     <app-messages />
   </div>
 </template>
 
 <script>
-import Heroes from './hero/heroes.vue';
 import MessagesComponent from './hero/messages.vue';
 
 export default {
   name: 'App',
   components: {
-    'app-heroes': Heroes,
     'app-messages': MessagesComponent
   },
   data: function() {
@@ -24,30 +26,34 @@ export default {
 };
 </script>
 
-<style>
-/* Application-wide Styles */
+<style scoped>
+/* AppComponent's private CSS styles */
 h1 {
-  color: #369;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+  font-size: 1.2em;
+  margin-bottom: 0;
 }
-h2,
-h3 {
-  color: #444;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
+h2 {
+  font-size: 2em;
+  margin-top: 0;
+  padding-top: 0;
 }
-body {
-  margin: 2em;
+nav a {
+  padding: 5px 10px;
+  text-decoration: none;
+  margin-top: 10px;
+  display: inline-block;
+  background-color: #eee;
+  border-radius: 4px;
 }
-body,
-input[type='text'],
-button {
-  color: #333;
-  font-family: Cambria, Georgia;
+nav a:visited,
+a:link {
+  color: #334953;
 }
-/* everywhere else */
-* {
-  font-family: Arial, Helvetica, sans-serif;
+nav a:hover {
+  color: #039be5;
+  background-color: #cfd8dc;
+}
+nav a.active {
+  color: #039be5;
 }
 </style>
