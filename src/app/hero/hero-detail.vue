@@ -13,12 +13,12 @@
       </label>
     </div>
     <button @click="goBack">go back</button>
+    <button @click="save">save</button>
   </div>
 </template>
 
 <script>
-import { HEROES } from './mock-heroes';
-import { getHero } from './hero.service';
+import { heroService } from './hero.service';
 
 export default {
   name: 'HeroDetail',
@@ -37,13 +37,14 @@ export default {
   },
   methods: {
     getHero: function() {
-      // const id = +this.route.snapshot.paramMap.get('id');
       const id = +this.$route.params.id;
-      getHero(id).then(hero => (this.hero = hero));
+      heroService.getHero(id).then(hero => (this.hero = hero));
     },
     goBack: function() {
-      // this.location.back();
       this.$router.go(-1);
+    },
+    save() {
+      heroService.updateHero(this.hero).then(() => this.goBack());
     }
   }
 };

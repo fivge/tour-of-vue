@@ -13,14 +13,19 @@
         </div>
       </router-link>
     </div>
+    <app-hero-search />
   </div>
 </template>
 
 <script>
-import { getHeroes } from './hero.service';
+import { heroService } from './hero.service';
+import HeroSearchComponent from './hero-search.vue';
 
 export default {
   name: 'DashboardComponent',
+  components: {
+    'app-hero-search': HeroSearchComponent
+  },
   data: function() {
     return {
       heroes: null
@@ -31,7 +36,7 @@ export default {
   },
   methods: {
     getHeroes() {
-      getHeroes().then(heroes => (this.heroes = heroes.slice(1, 5)));
+      heroService.getHeroes().then(heroes => (this.heroes = heroes.slice(1, 5)));
     }
   }
 };
