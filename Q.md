@@ -24,6 +24,8 @@ pipe 如何实现
 
 > computed
 
+> [filters](https://cn.vuejs.org/v2/guide/filters.html)
+
 > | async 管道需要再考虑
 
 ### 3
